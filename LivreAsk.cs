@@ -1,14 +1,15 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 
 namespace Nuggets01
 {
 
- 
-    public class LivreAsk 
+
+    public class LivreAsk
     {
         // Propriétés
         public int Id { get; set; }
@@ -16,12 +17,11 @@ namespace Nuggets01
         public string Auteur { get; set; }
         public int AnneePublication { get; set; }
         public int Isbn { get; set; }
-    
-    
-    
+
+
         // Constructeurs
 
-        public LivreAsk(string titre, string auteur, int annee, int isbn) 
+        public LivreAsk(string titre, string auteur, int annee, int isbn)
         {
             Titre = titre;
             Auteur = auteur;
@@ -29,8 +29,8 @@ namespace Nuggets01
             Isbn = isbn;
         }
 
-        public LivreAsk(int id, string titre, string auteur, int annee, int isbn) 
-            {
+        public LivreAsk(int id, string titre, string auteur, int annee, int isbn)
+        {
             Id = id;
             Titre = titre;
             Auteur = auteur;
@@ -42,11 +42,7 @@ namespace Nuggets01
 
 
         // Méthodes
-        // AJOUTER LIVRE
-
-
-
-        public static void AjouterLivre()
+        private static LivreAsk CreerLivre()
         {
             Console.WriteLine("Ajout d'un nouveau livre");
             Console.Write("Titre : ");
@@ -58,64 +54,50 @@ namespace Nuggets01
             Console.Write("Numéro ISBN : ");
             int isbn = int.Parse(Console.ReadLine());
 
+            LivreAsk livreAsk = new LivreAsk(titre, auteur, annee, isbn);
+            return livreAsk;
+        }
 
-            //Creation de l'objet Livre
-            Livre livre = new Livre(titre, auteur, annee, isbn);
-
-            //Console.WriteLine("Livre ajouté avec succès : ");
-
-            
-            
-
-            // nous allons essayer de nous connecter a la BDD
+        public static void AjouterLivreDB(LivreAsk livre)
+        {
             try
             {
-                using MySqlConnection connection =
-                new MySqlConnection(DatabaseConfig.ConnectionString);
-
-                // Ouverture de la connection
+                using MySqlConnection connection = new MySqlConnection(DatabaseConfig.ConnectionString);
                 connection.Open();
 
-                // requete a effectue sur la BDD avec les valeurs passée via des parametre pour eviter le injections SQL
-                string query = "INSERT INTO livre (Titre,Auteur,Annee,Isbn) VALUES (@Titre,@Auteur,@Annee,@Isbn)";
-
-                // on va cree un object commande qui va conteneir la requete a effectue et la connection 
+                string query = "INSERT INTO livre (Titre, Auteur, Annee, Isbn) VALUES (@Titre, @Auteur, @Annee, @Isbn)";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-
-                // On viens remplacer les differents parametres qui sont present dans notre requete
                 cmd.Parameters.AddWithValue("@Titre", livre.Titre);
                 cmd.Parameters.AddWithValue("@Auteur", livre.Auteur);
                 cmd.Parameters.AddWithValue("@Annee", livre.AnneePublication);
                 cmd.Parameters.AddWithValue("@Isbn", livre.Isbn);
 
-                // On vas executer la requete sur la bdd et recuperer le nombres de lignes affecter
                 int rowAffected = cmd.ExecuteNonQuery();
                 if (rowAffected > 0)
                 {
-                    Console.WriteLine("Livre ajouté avec succes");
+                    Console.WriteLine("Livre ajouté avec succès !");
                 }
-
-
             }
             catch (Exception e)
-            { // j'atterit dans le catch si une erreur est arrive dans le try
+            {
                 Console.WriteLine("Erreur : " + e.Message);
             }
-         
-            }
+        }
 
-
-
-
+        public static void AjouterLivre()
+        {
+            LivreAsk nouveauLivre = CreerLivre();
+            AjouterLivreDB(nouveauLivre);
+        }
 
         //AFFICHER LIVRES
         public static void AfficherLivre()
         {
             Console.WriteLine("--- Liste des Livres ---");
-       
+
             try
             {
-               using MySqlConnection connection =
+                using MySqlConnection connection =
                new MySqlConnection(DatabaseConfig.ConnectionString);
                 connection.Open();
 
@@ -164,14 +146,14 @@ namespace Nuggets01
                 Console.WriteLine("Erreur : " + ex.Message);
             }
             //Utilisation du finaly (block au passage obligatoire pour fermer la connection a la bdd
-           
+
         }
 
 
         //RECHERCHER LIVRE PAR ID
 
         public static void RechercherLivre()
-     
+
         {
             Console.WriteLine("--- Recherche Par Id ---");
             Console.WriteLine("Id du livre Recherché :");
@@ -226,7 +208,7 @@ namespace Nuggets01
             Console.WriteLine("Id du livre à modifier :");
             var id = int.Parse(Console.ReadLine());
 
-          
+
             try
             {
                using MySqlConnection connection =
@@ -276,7 +258,7 @@ namespace Nuggets01
             {
                 Console.WriteLine("Erreur : " + ex.Message);
             }
-          
+
         }
 
         //SUPPRIMER UN LIVRE
@@ -312,10 +294,16 @@ namespace Nuggets01
             {
                 Console.WriteLine("Erreur :" + ex.Message);
             }
-         
+
         }
     }
 }
+
+
+
+
+
+
 
 
 
