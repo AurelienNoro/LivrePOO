@@ -34,3 +34,4 @@ C:\Users\Administrateur\source\repos\Nuggets01\Nuggets01\obj\Debug\net10.0\refin
 C:\Users\Administrateur\source\repos\Nuggets01\Nuggets01\obj\Debug\net10.0\Nuggets01.pdb
 C:\Users\Administrateur\source\repos\Nuggets01\Nuggets01\obj\Debug\net10.0\Nuggets01.genruntimeconfig.cache
 C:\Users\Administrateur\source\repos\Nuggets01\Nuggets01\obj\Debug\net10.0\ref\Nuggets01.dll
+C:\Users\Administrateur\source\repos\Nuggets01\Nuggets01\obj\Debug\net10.0\Nuggets01.sourcelink.json

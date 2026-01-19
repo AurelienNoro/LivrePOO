@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Nuggets01")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+05fe05ea3ac994f2c22ec3be57dac0d4b333f9aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nuggets01")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nuggets01")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
