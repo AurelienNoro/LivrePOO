@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Nuggets01
 {
+   
     internal class Livre
     {
         // Propriétés
